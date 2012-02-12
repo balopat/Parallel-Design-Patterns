@@ -2,7 +2,8 @@ Parallel Design Patterns is a project to demonstrate the Patterns for Parallel P
 
 We defined a few Algorithm Structure templates with some examplary default Implementation Mechanism such as DivideAndConquerStrategyWithExecutionService. 
 
-Sample problem Testcases are defined for small problems which can be parallelized. 
+Sample problem testcases are defined for small problems which can be parallelized. 
+
 
 An example: 
 
@@ -20,7 +21,7 @@ A data decomposition that identifies data local to each task
 A way of grouping tasks and ordering the groups to satisfy temporal constraints
 An analysis of dependencies among tasks
 
-The examples in this project will have some quite basic designs, still, the goal is to bring the thinking process and the decisions to a concious level.  
+The examples in this project will have some quite basic designs, still, the goal is to bring the thinking process and the decisions to a conscious level.  
 
 Secondly decide which algorithm fits the best to your design: 
 
