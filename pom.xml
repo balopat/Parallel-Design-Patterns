@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>QSP</groupId>
-    <artifactId>QSP</artifactId>
+    <groupId>org.lscc</groupId>
+    <artifactId>ParallelDesignPatterns</artifactId>
     <version>1.0</version>
     <dependencies>
         <dependency>
@@ -13,77 +13,6 @@
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.sun.japex</groupId>
-            <artifactId>japex</artifactId>
-            <version>1.2.4</version>
-        </dependency>
     </dependencies>
-
-    <build>
-        <defaultGoal>test</defaultGoal>
-        <plugins>
-            <plugin>
-                <groupId>com.sun.japex</groupId>
-                <artifactId>japex-maven-plugin</artifactId>
-                <version>1.2.4</version>
-                <executions>
-                    <execution>
-                        <id>japex</id>
-                        <goals>
-                            <goal>japex</goal>
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <japexConfig>
-                        <testSuite name="ParsingPerformance" xmlns="http://www.sun.com/japex/testSuite">
-                            <param name="japex.namedClassPath" value="maven.test.classpath"/>
-                            <param name="japex.resultUnit" value="ms"/>
-                            <param name="japex.warmupIterations" value="0"/>
-                            <param name="japex.runIterations" value="3"/>
-                            <param name="japex.chartType" value="linechart"/>
-                            <param name="japex.plotDrivers" value="true"/>
-                            <param name="japex.plotGroupSize" value="100"/>
-
-
-                            <driver name="perftest">
-                                <param name="japex.driverClass" value="com.lscc.PerfTester"/>
-                                <param name="description" value=""/>
-                            </driver>
-
-                            <testCase name="run1">
-                                <param name="a" value="0"/>
-                                <param name="b" value="10"/>
-                            </testCase>
-                            <testCase name="run2">
-                                <param name="a" value="0"/>
-                                <param name="b" value="30"/>
-                            </testCase>
-                            <testCase name="run3">
-                                <param name="a" value="0"/>
-                                <param name="b" value="90"/>
-                            </testCase>
-                            <testCase name="run4">
-                                <param name="a" value="0"/>
-                                <param name="b" value="270"/>
-                            </testCase>
-                            <testCase name="run5">
-                                <param name="a" value="0"/>
-                                <param name="b" value="810"/>
-                            </testCase>
-                            <testCase name="run6">
-                                <param name="a" value="0"/>
-                                <param name="b" value="1630"/>
-                            </testCase>
-                        </testSuite>
-                    </japexConfig>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 
 </project>
