@@ -1,7 +1,6 @@
 package org.lscc.minfinder;
 
 import org.junit.Test;
-import org.lscc.minfinder.Function;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

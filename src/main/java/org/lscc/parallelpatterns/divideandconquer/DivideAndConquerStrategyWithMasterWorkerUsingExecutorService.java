@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-public abstract class DivideAndConquerStrategyWithExecutorService<Problem, Solution> extends DivideAndConquerStrategy<Problem, Solution> {
+public abstract class DivideAndConquerStrategyWithMasterWorkerUsingExecutorService<Problem, Solution> extends DivideAndConquerStrategy<Problem, Solution> {
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
