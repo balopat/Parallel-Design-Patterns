@@ -1,25 +1,26 @@
 package org.lscc.minfinder;
 
 import org.junit.Test;
+import org.lscc.IntToIntFunction;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class MinimumFinderTest {
 
-    private Function sqr = new Function() {
+    private IntToIntFunction sqr = new IntToIntFunction() {
         public int apply(int x) {
             return x * x;
         }
     };
 
-    private Function neg = new Function() {
+    private IntToIntFunction neg = new IntToIntFunction() {
         public int apply(int x) {
             return -x;
         }
     };
 
-    private Function slowNeg = new Function() {
+    private IntToIntFunction slowNeg = new IntToIntFunction() {
         public int apply(int x) {
             try {
                 Thread.sleep(200);
