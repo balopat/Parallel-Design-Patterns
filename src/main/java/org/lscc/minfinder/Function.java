@@ -1,5 +1,5 @@
 package org.lscc.minfinder;
 
-public interface Function {
-    int apply(int x);
+public interface Function<X,Result> {
+    Result apply(X x);
 }

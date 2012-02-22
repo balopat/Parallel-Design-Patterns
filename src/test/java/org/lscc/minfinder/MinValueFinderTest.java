@@ -7,20 +7,23 @@ import static org.junit.Assert.assertThat;
 
 public class MinValueFinderTest {
 
-    private Function square = new Function() {
-        public int apply(int x) {
+    private Function square = new Function<Integer,Integer>() {
+        @Override
+        public Integer apply(Integer x) {
             return x * x;
         }
     };
 
-    private Function neg = new Function() {
-        public int apply(int x) {
+    private Function neg = new Function<Integer,Integer>() {
+        @Override
+        public Integer apply(Integer x) {
             return -x;
         }
     };
 
-    private Function slowNeg = new Function() {
-        public int apply(int x) {
+    private Function slowNeg = new Function<Integer, Integer>() {
+        @Override
+        public Integer apply(Integer x) {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -33,7 +36,7 @@ public class MinValueFinderTest {
     @Test
     public void givenSqrFunctionAndIntervalFrom2To5ShouldResultIn4(){
         MinValueFinder minValueFinderSqr = new MinValueFinder(square);
-        int minValue = minValueFinderSqr.findMinValueBetween(-4,10);
+        int minValue = minValueFinderSqr.findMinValueBetween(2,5);
         assertThat(minValue, is(4));
     }
 
@@ -53,7 +56,9 @@ public class MinValueFinderTest {
 
     @Test
     public void shouldReturnTheFunctionValueForOneElement(){
-        assertThat(new MinValueFinder(square).findMinValueBetween(-1,-1), is(square.apply(-1)));
+        MinValueFinder minValueFinderSqr = new MinValueFinder(square);
+        int minValue = minValueFinderSqr.findMinValueBetween(-2,-2);
+        assertThat(minValue, is(4));
     }
 
     @Test(timeout = 1000)
