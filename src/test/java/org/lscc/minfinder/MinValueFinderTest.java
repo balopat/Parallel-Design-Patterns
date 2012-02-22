@@ -5,9 +5,9 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class MinimumFinderTest {
+public class MinValueFinderTest {
 
-    private Function sqr = new Function() {
+    private Function square = new Function() {
         public int apply(int x) {
             return x * x;
         }
@@ -32,33 +32,35 @@ public class MinimumFinderTest {
 
     @Test
     public void givenSqrFunctionAndIntervalFrom2To5ShouldResultIn4(){
-        assertThat(new MinimumFinder(sqr).findMinimum(2,5), is(sqr.apply(2)));
+        MinValueFinder minValueFinderSqr = new MinValueFinder(square);
+        int minValue = minValueFinderSqr.findMinValueBetween(-4,10);
+        assertThat(minValue, is(4));
     }
 
     @Test
     public void givenSqrFunctionAndIntervalFromMinus4To10ShouldResultIn0(){
-        MinimumFinder minimumFinderForNeg = new MinimumFinder(sqr);
-        int actualMin = minimumFinderForNeg.findMinimum(-4,10);
-        assertThat(actualMin, is(0));
+        MinValueFinder minValueFinderForSquare = new MinValueFinder(square);
+        int minValue = minValueFinderForSquare.findMinValueBetween(-4,10);
+        assertThat(minValue, is(0));
     }
 
     @Test
     public void givenNegFunctionAndIntervalFromMinus4To10ShouldResultInMinus10(){
-        MinimumFinder minimumFinderForNeg = new MinimumFinder(neg);
-        int actualMin = minimumFinderForNeg.findMinimum(-4,10);
-        assertThat(actualMin, is(-10));
+        MinValueFinder minValueFinderForNeg = new MinValueFinder(neg);
+        int minValue = minValueFinderForNeg.findMinValueBetween(-4,10);
+        assertThat(minValue, is(-10));
     }
 
     @Test
     public void shouldReturnTheFunctionValueForOneElement(){
-        assertThat(new MinimumFinder(sqr).findMinimum(-1,-1), is(sqr.apply(-1)));
+        assertThat(new MinValueFinder(square).findMinValueBetween(-1,-1), is(square.apply(-1)));
     }
 
     @Test(timeout = 1000)
     public void shouldFinishInTime(){
-        MinimumFinder minimumFinderForSlowNeg = new MinimumFinder(slowNeg);
-        int actualMin = minimumFinderForSlowNeg.findMinimum(0,10);
-        assertThat(actualMin, is(-10));
+        MinValueFinder minValueFinderForSlowNeg = new MinValueFinder(slowNeg);
+        int minValue = minValueFinderForSlowNeg.findMinValueBetween(0,10);
+        assertThat(minValue, is(-10));
     }
 
 
