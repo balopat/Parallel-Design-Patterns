@@ -1,37 +1,23 @@
-Parallel Design Patterns is a project to demonstrate the Patterns for Parallel Programming book's patterns. From the four design spaces the focus is on the Finding Concurrency and Algorithm Structure spaces. 
+This is the Java version of the Parallel Design Patterns project to demonstrate some of the Patterns for Parallel Programming book's ideas. 
 
-We defined a few Algorithm Structure templates with some examplary default Implementation Mechanism such as DivideAndConquerStrategyWithExecutionService. 
+The Patterns for [Parallel Programming book](http://www.amazon.com/Patterns-Parallel-Programming-Timothy-Mattson/dp/0321228111)
+ offers the power of design patterns to help tackling the complexity in the design process. It describes four “design spaces”:
 
-Sample problem testcases are defined for small problems which can be parallelized. 
+* **Finding Concurrency**: identify the available concurrency and expose it for use in the algorithmic design
+* **Algorithm Structure**: work with high level structures for organizing a parallel algorithm
+* **Supporting Structures**: source code level considerations & data sharing techniques.
+* **Implementation Mechanisms**: specific implementation constructs:  thread/process handling, synchronizations, etc.
 
+From the four design spaces the current focus is on the Finding Concurrency and Algorithm Structure spaces. 
 
-An example: 
+**Part I.** Make the [MinFinderTest](src/test/java/org/lscc/minfinder/MinValueFinderTest.java) green! 
 
-MinimumFinder is a function which should return the minimum value of a function on a given interval. 
+1. Solve the functional part sequentially
+2. Make the performance test green by porting your application to the Divide And Conquer pattern
 
-The functional requirements are defined by MinimumFinderTest. 
-This test also contains a timing requirement and a "slow" function for simulation. The intention is to enforce the parallel implementation. 
+**Part II.** Play with it! 
 
-How to solve? 
+3. Refactor the code so MinimumFinder does not use the abstract class!
+4. Introduce "a knob" to make the degree of parallelism configurable
 
-When implementing the problem you should first give some though to the Finding Concurrency phase, so you will end up having: 
-
-A task decomposition that identifies tasks that can execute concurrently 
-A data decomposition that identifies data local to each task 
-A way of grouping tasks and ordering the groups to satisfy temporal constraints
-An analysis of dependencies among tasks
-
-The examples in this project will have some quite basic designs, still, the goal is to bring the thinking process and the decisions to a conscious level.  
-
-Secondly decide which algorithm fits the best to your design: 
-
-What is the major organizing principle in your problem? Tasks, Data Decomposition or th Flow of Data? 
-
-If Tasks, choose between Task Parallelism (for linear solutions) or Divide And Conquer (for recursive decomposition).
-
-If Data Decomposition, choose between Geometric Decomposition (linear) or Recursive data (recursive decomposition). 
-
-If is Organized by Flow of Data, choose between Pipeline (regular feeds) or Event-Based coordination (irregular feeds). 
-
-Happy experimenting! 
 
