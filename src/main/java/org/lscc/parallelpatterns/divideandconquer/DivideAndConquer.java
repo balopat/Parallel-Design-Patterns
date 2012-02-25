@@ -2,10 +2,13 @@ package org.lscc.parallelpatterns.divideandconquer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public abstract class DivideAndConquer<Problem, Solution>  {
-
+public abstract class DivideAndConquer<Problem, Solution> {
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
     protected abstract Boolean isBaseCase(Problem p);
@@ -44,7 +47,8 @@ public abstract class DivideAndConquer<Problem, Solution>  {
         });
     }
 
-    private List<Solution> waitForAndCollectSolutions(List<Future<Solution>> solvers) throws ExecutionException, InterruptedException {
+    private List<Solution> waitForAndCollectSolutions(List<Future<Solution>> solvers)
+            throws ExecutionException, InterruptedException {
         List<Solution> solutions = new ArrayList<Solution>();
         for (Future<Solution> solver : solvers) {
             solutions.add(solver.get());
