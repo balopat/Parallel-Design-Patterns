@@ -1,44 +1,57 @@
 package org.lscc.minfinder;
 
-import org.lscc.parallelpatterns.divideandconquer.DivideAndConquer;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.*;
 
-public class MinValueFinder extends DivideAndConquer<MinValueFinderProblem, Integer>{
-
-
+public class MinValueFinder {
     private Function<Integer, Integer> f;
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public MinValueFinder(Function<Integer, Integer> function) {
         this.f = function;
     }
 
     public int findMinValueBetween(int a, int b) {
-        return solve(new MinValueFinderProblem(a,b,this.f));
+        //isBaseCase
+        if (a == b) {
+            return f.apply(a);
+        }
+        //split
+        List<Interval> subIntervals = new Interval(a, b).splitIntoTwo();
+        //sub solvers
+        List<Future<Integer>> localMinimumFinders = new ArrayList<Future<Integer>>();
+        for (Interval subInterval : subIntervals) {
+            localMinimumFinders.add(runMinFinderOnInterval(subInterval.a, subInterval.b));
+        }
+        //sub solutions
+        List<Integer> localMinimums = waitForAndCollectLocalMinimums(localMinimumFinders);
+        //merge
+        return Collections.min(localMinimums);
+
     }
 
-    @Override
-    protected Boolean isBaseCase(MinValueFinderProblem p) {
-        return p.a == p.b;
+    private Future<Integer> runMinFinderOnInterval(final int a, final int b) {
+        return executorService.submit(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return findMinValueBetween(a, b);
+            }
+        });
     }
 
-    @Override
-    protected Integer baseSolve(MinValueFinderProblem p) {
-        return p.f.apply(p.a);
-    }
-
-    @Override
-    protected Integer merge(List<Integer> subSolutions) {
-        return Collections.min(subSolutions);
-    }
-
-    @Override
-    protected List<MinValueFinderProblem> split(MinValueFinderProblem p) {
-        List<MinValueFinderProblem> result = new ArrayList<MinValueFinderProblem>();
-        result.add(new MinValueFinderProblem(p.a, p.a+(p.b-p.a)/2, p.f));
-        result.add(new MinValueFinderProblem(p.a+(p.b-p.a)/2+1, p.b, p.f));
-        return result;
+    private List<Integer> waitForAndCollectLocalMinimums(List<Future<Integer>> minFinders) {
+        try {
+            List<Integer> localMinimums = new ArrayList<Integer>();
+            for (Future<Integer> solver : minFinders) {
+                localMinimums.add(solver.get());
+            }
+            return localMinimums;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
