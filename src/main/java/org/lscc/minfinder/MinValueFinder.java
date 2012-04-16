@@ -1,7 +1,5 @@
 package org.lscc.minfinder;
 
-import com.sun.deploy.util.ArrayUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +24,7 @@ public class MinValueFinder {
         if (a == b) {
             return f.apply(a);
         }
-        if (numThreads == MAX_NUM_OF_THREADS) {
+        if (numThreads >= MAX_NUM_OF_THREADS) {
             return findMinValueSequentially(a, b);
         }
         //split
